@@ -67,7 +67,7 @@ public class D4JLink extends Link {
 
     @Override
     protected void queueAudioDisconnect() {
-        GatewayDiscordClient clinet = this.lavalink.getD4J(LavalinkUtil.getShardFromSnowflake(getGuildId(), this.lavalink.getNumShards()));
+        GatewayDiscordClient clinet = this.lavalink.getD4J();
 
         if (getChannel() == null) {
             log.warn("Found no voice channel to disconnect from");
@@ -83,7 +83,7 @@ public class D4JLink extends Link {
 
     @Override
     protected void queueAudioConnect(long channelId) {
-        GatewayDiscordClient clinet = this.lavalink.getD4J(LavalinkUtil.getShardFromSnowflake(getGuildId(), this.lavalink.getNumShards()));
+        GatewayDiscordClient clinet = this.lavalink.getD4J();
 
         GuildChannel guildChannel = clinet.getGuildChannels(Snowflake.of(channelId)).blockFirst();
 

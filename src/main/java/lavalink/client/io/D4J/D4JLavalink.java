@@ -25,11 +25,11 @@ import java.util.function.Function;
 public class D4JLavalink extends Lavalink<D4JLink> implements EventListener {
 
     private static final Logger log = LoggerFactory.getLogger(D4JLavalink.class);
-    private Function<Integer, GatewayDiscordClient> d4jProvider;
+    private GatewayDiscordClient d4jProvider;
     private boolean autoReconnect = true;
     private final D4JVoiceInterceptor voiceInterceptor;
 
-    public D4JLavalink(@Nullable String userId, int numShards, Function<Integer, GatewayDiscordClient> d4jProvider) {
+    public D4JLavalink(@Nullable String userId, int numShards, GatewayDiscordClient d4jProvider) {
         super(userId, numShards);
         this.d4jProvider = d4jProvider;
         voiceInterceptor = new D4JVoiceInterceptor(this);
@@ -40,7 +40,7 @@ public class D4JLavalink extends Lavalink<D4JLink> implements EventListener {
     private void subscribeToEvents() {
 
         // Not sure what this exactly does lol.
-        GatewayDiscordClient client = this.getD4J(0);
+        GatewayDiscordClient client = this.getD4J();
 
 
         EventDispatcher dispatcher = client.getEventDispatcher();
@@ -67,8 +67,8 @@ public class D4JLavalink extends Lavalink<D4JLink> implements EventListener {
         return new D4JLink(this, guildId);
     }
 
-    public GatewayDiscordClient getD4J(int id) {
-        return this.d4jProvider.apply(id);
+    public GatewayDiscordClient getD4J() {
+        return this.d4jProvider;
     }
 
     public void onEvent(Event event) {
